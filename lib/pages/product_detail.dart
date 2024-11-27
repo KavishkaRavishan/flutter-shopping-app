@@ -2,7 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/widget/support_widget.dart';
 
 class ProductDetail extends StatefulWidget {
-  const ProductDetail({super.key});
+  final String image;
+  final String name;
+  final String detail;
+  final String price;
+
+  const ProductDetail({
+    Key? key,
+    required this.detail,
+    required this.image,
+    required this.name,
+    required this.price,
+  }) : super(key: key);
 
   @override
   State<ProductDetail> createState() => _ProductDetailState();
@@ -27,18 +38,21 @@ class _ProductDetailState extends State<ProductDetail> {
                     Navigator.pop(context);
                   },
                   child: Container(
-                      margin: EdgeInsets.only(left: 20),
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Icon(Icons.arrow_back_ios_new_outlined)),
+                    margin: EdgeInsets.only(left: 20),
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Icon(Icons.arrow_back_ios_new_outlined),
+                  ),
                 ),
                 Center(
-                  child: Image.asset(
-                    "images/headphone2.png",
-                    height: 400,
+                  child: Image.network(
+                    // Changed to network image
+                    widget.image,
+                    height: 320,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ],
@@ -61,11 +75,11 @@ class _ProductDetailState extends State<ProductDetail> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Headphone",
+                          widget.name,
                           style: AppWidget.boldTextFieldStyle(),
                         ),
                         Text(
-                          "\$300",
+                          "\$${widget.price}",
                           style: TextStyle(
                               color: Color(0xFFfd6f3e),
                               fontSize: 23,
@@ -73,21 +87,14 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20),
                     Text(
                       "Details",
                       style: AppWidget.semiboldTextFieldStyle(),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                        "The product is very good.It has a 1 year warranty,These headphones are too good like you can also listen a person who is speaking slowly,But be aware of shivam hea speaks very loudly"),
-                    SizedBox(
-                      height: 90,
-                    ),
+                    SizedBox(height: 10),
+                    Text(widget.detail),
+                    SizedBox(height: 90),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
